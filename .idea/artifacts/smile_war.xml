@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="smile:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="common.war">
+      <element id="artifact" artifact-name="smile:war exploded" />
+    </root>
+  </artifact>
+</component>

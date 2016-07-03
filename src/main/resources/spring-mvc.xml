@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- 激活spring的注解. -->
+    <context:annotation-config/>
+    <context:component-scan base-package="smile"/>
+    <context:property-placeholder location="classpath:*.properties" file-encoding="utf-8"/>
+    <aop:aspectj-autoproxy/>
+    <!--<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/>-->
+    <task:annotation-driven/>
+
+    <!--<mvc:resources mapping="/ueditor/**" location="/ueditor/" />-->
+    <mvc:annotation-driven>
+        <!--<mvc:message-converters>-->
+            <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+                <!--<property name="objectMapper">-->
+                    <!--<bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">-->
+                        <!--<property name="featuresToEnable">-->
+                            <!--<array>-->
+                                <!--<util:constant static-field="com.fasterxml.jackson.databind.DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT"/>-->
+                            <!--</array>-->
+                        <!--</property>-->
+                        <!--<property name="featuresToDisable">-->
+                            <!--<array>-->
+                                <!--<util:constant static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES"/>-->
+                            <!--</array>-->
+                        <!--</property>-->
+                    <!--</bean>-->
+                <!--</property>-->
+            <!--</bean>-->
+        <!--</mvc:message-converters>-->
+    </mvc:annotation-driven>
+    <mvc:resources mapping="/**/" location="/"/>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!--<mvc:exclude-mapping path="/ueditor/**"/>-->
+            <!--<bean class="ttw.shop.interceptor.PurviewInterceptor"/>-->
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--<mvc:cors>-->
+    <!--<mvc:mapping path="/**" />-->
+    <!--</mvc:cors>-->
+
+
+    <!--servlet适配器，这里必须明确声明，因为spring默认没有初始化该适配器-->
+    <!--<bean id="servletHandlerAdapter"-->
+    <!--class="org.springframework.web.servlet.handler.SimpleServletHandlerAdapter"/>-->
+    <!--<bean id="servletHandlerAdapter"-->
+    <!--class="org.springframework.web.servlet.handler."/>-->
+
+
+    <!--<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+    <!--<property name="supportedMediaTypes">-->
+    <!--<list>-->
+    <!--<value>text/html;charset=UTF-8</value>-->
+    <!--</list>-->
+    <!--</property>-->
+
+    <!--</bean>-->
+
+    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">-->
+    <!--<property name="messageConverters">-->
+    <!--<list>-->
+    <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>-->
+    <!--<bean class="org.springframework.http.converter.FormHttpMessageConverter"/>-->
+    <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter"/>-->
+    <!--<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>-->
+    <!--<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+    <!--<constructor-arg type="com.fasterxml.jackson.databind.ObjectMapper">-->
+    <!--<bean class="ttw.common.ObjectMapper"/>-->
+    <!--&lt;!&ndash;<bean class="com.fasterxml.jackson.databind.ObjectMapper">&ndash;&gt;-->
+    <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+    <!--</constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<bean id="jacksonObjectMapper" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">-->
+    <!--<property name="targetObject">-->
+    <!--<bean class="com.fasterxml.jackson.databind.ObjectMapper">-->
+    <!--&lt;!&ndash; 处理responseBody 里面日期类型,可能线程不安全，后期研究 &ndash;&gt;-->
+    <!--&lt;!&ndash; <property name="dateFormat">-->
+    <!--<bean class="java.text.SimpleDateFormat">-->
+    <!--<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />-->
+    <!--</bean>-->
+    <!--</property> &ndash;&gt;-->
+    <!--&lt;!&ndash; 为null字段时不显示 &ndash;&gt;-->
+    <!--&lt;!&ndash;<property name="serializationInclusion">&ndash;&gt;-->
+    <!--&lt;!&ndash;<value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>&ndash;&gt;-->
+    <!--&lt;!&ndash;</property>&ndash;&gt;-->
+    <!--</bean>-->
+    <!--</property>-->
+    <!--<property name="targetMethod" value="configure" />-->
+    <!--<property name="arguments">-->
+    <!--<list>-->
+    <!--<value type="com.fasterxml.jackson.databind.DeserializationFeature">FAIL_ON_UNKNOWN_PROPERTIES</value>-->
+    <!--<value>false</value>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"-->
+          <!--p:prefix="/WEB-INF/views/" p:suffix=".jsp"/>-->
+    <!--p:prefix="/" p:suffix=".jsp" />-->
+
+    <!-- 支持上传文件 过滤百度富文本上传-->
+
+    <!--<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="commonsMultipartResolver"-->
+    <!--p:defaultEncoding="${file.upload.encoding}"-->
+    <!--p:maxUploadSize="${file.upload.maxSize}"/>-->
+
+    <!--<bean id="multipartResolver" class="ttw.shop.common.CommonsMultiparResolver">-->
+        <!--<property name="defaultEncoding" value="UTF-8"/>-->
+        <!--<property name="maxUploadSize" value="10485760"/>-->
+        <!--<property name="maxInMemorySize" value="4096"/>-->
+    <!--</bean>-->
+
+    <!--<bean class="ttw.shop.exception.ExceptionResolver"/>-->
+
+    <!--<bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">-->
+        <!--<property name="resourceLoaderPath" value="WEB-INF/vm/"/>-->
+        <!--<property name="velocityProperties">-->
+            <!--<props>-->
+                <!--<prop key="input.encoding">UTF-8</prop>-->
+                <!--<prop key="output.encoding">UTF-8</prop>-->
+                <!--<prop key="contentType">text/html;charset=UTF-8</prop>-->
+                <!--&lt;!&ndash;<prop key="velocimacro.library">macro/macros.vm</prop>&ndash;&gt;-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+
+    <!-- 注意:这里的参数(如用户名、密码)都是针对邮件发送者的 -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${mail.host}"/>
+        <property name="port" value="${mail.port}"/>
+        <property name="username" value="${mail.username}"/>
+        <property name="password" value="${mail.password}"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+                <prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
+            </props>
+        </property>
+    </bean>
+    <!--邮箱配置-->
+    <bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="${mail.default.from}"/>
+    </bean>
+
+    <!--p:uploadTempDir="${file.upload}${file.upload.temp}"-->
+
+
+    <!--配置验证码-->
+    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <prop key="kaptcha.border">${kaptcha.border}</prop>
+                        <prop key="kaptcha.border.color">${kaptcha.border.color}</prop>
+                        <prop key="kaptcha.textproducer.font.color">${kaptcha.textproducer.font.color}</prop>
+                        <prop key="kaptcha.image.width">${kaptcha.image.width}</prop>
+                        <prop key="kaptcha.image.height">${kaptcha.image.height}</prop>
+                        <prop key="kaptcha.textproducer.font.size">${kaptcha.textproducer.font.size}</prop>
+                        <prop key="kaptcha.session.key">${kaptcha.session.key}</prop>
+                        <prop key="kaptcha.textproducer.char.string">${kaptcha.textproducer.char.string}</prop>
+                        <prop key="kaptcha.textproducer.char.length">${kaptcha.textproducer.char.length}</prop>
+                        <prop key="kaptcha.textproducer.font.names">${kaptcha.textproducer.font.names}</prop>
+                        <!--<prop key="kaptcha.border">yes</prop>-->
+                        <!--<prop key="kaptcha.border.color">105,179,90</prop>-->
+                        <!--<prop key="kaptcha.textproducer.font.color">blue</prop>-->
+                        <!--<prop key="kaptcha.image.width">125</prop>-->
+                        <!--<prop key="kaptcha.image.height">45</prop>-->
+                        <!--<prop key="kaptcha.textproducer.font.size">45</prop>-->
+                        <!--<prop key="kaptcha.session.key">code</prop>-->
+                        <!--<prop key="kaptcha.textproducer.char.length">4</prop>-->
+                        <!--<prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>-->
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+    <!--<bean id="simpleMappingExceptionResolver" class="ttw.shop.exception.GlobalExceptionHandler"/>-->
+
+</beans>
